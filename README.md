@@ -126,14 +126,4 @@ This is a two-part app (a static React frontend + a Java Spring Boot backend + a
 
 ---
 
-## 🎨 What Was Rebranded
-
-- **Name**: SayIt → **SpeakVaani**
-- **Color palette**: warm orange/violet → cool **indigo → cyan → emerald** brand gradient (light & dark themes)
-- **Fonts**: Space Grotesk/Syne → **Manrope** (body) & **Outfit** (headings)
-- **Logo**: replaced with an original inline SVG "V" wordmark (auto-adapts to light/dark mode) — no dependency on the old artwork
-- **Favicon & app icons**: regenerated to match the new mark
-- **Backend package**: `com.sayit` → `com.speakvaani`, main class renamed to `SpeakVaaniApplication`
-- **Watermark/credit**: "Designed & Developed by Er. Pankaj Kumar" added to the site footer and this README
-
-If you want a completely custom logo (not a generated one), swap out the SVG in `src/components/ui/Logo.tsx` or replace the PNGs in `/public` with your own design — everything else (colors, fonts) will still apply automatically.
+design — everything else (colors, fonts) will still apply automatically.
