@@ -1,129 +1,547 @@
-# SpeakVaani — AI-Powered Speech Training & Coaching Platform
+# 🎙️ SpeakVaani — AI-Powered Speech Training & Coaching Platform
+
+### **Speak • Analyze • Improve • Repeat**
 
 **Designed & Developed by Er. Pankaj Kumar**
 
-SpeakVaani is a full-stack interactive speaking training and coaching platform built around the core loop:
-**Choose → Speak → Record → Transcribe (Groq Whisper) → Analyze (Java Metrics + Ollama Llama 3.2) → Improve → Retry → Track Progress**.
+SpeakVaani is a full-stack AI-powered speech training and coaching platform that helps users improve their speaking skills through **real speech recording, AI transcription, deterministic speech metrics, qualitative AI feedback, attempt comparison, and progress tracking**.
+
+> **Core Loop:**  
+> 🎯 Choose → 🎙️ Speak → 🔴 Record → 📝 Transcribe → 📊 Analyze → 🤖 Get AI Feedback → 🔁 Improve → 📈 Track Progress
 
 ---
 
-## 🎙️ Real AI Speech Coaching Pipeline
+## 🌐 Live Demo
+
+### 🚀 **[Try SpeakVaani Live](https://speakvani.vercel.app/)**
+
+**Live Application:** https://speakvani.vercel.app/
+
+> The frontend is deployed on Vercel. The application is designed as a full-stack system with a React frontend, Spring Boot backend, PostgreSQL persistence, Groq Whisper transcription, and Ollama-based AI coaching.
+
+---
+
+## ✨ Why SpeakVaani?
+
+Unlike a simple speech-to-text application, SpeakVaani combines **speech recognition + deterministic Java analysis + AI-powered qualitative evaluation** into one coaching workflow.
+
+### Key Capabilities
+
+- 🎙️ **Real-time speech recording** using WebRTC and MediaRecorder
+- 📝 **Speech-to-text transcription** using Groq Whisper
+- 📊 **Deterministic speech metrics** calculated by a Java analysis engine
+- 🤖 **AI-powered language and argument evaluation** using Ollama Llama 3.2
+- 🔎 **Context-aware filler word detection**
+- ⏱️ **Speaking speed / WPM analysis**
+- 📚 **Sentence and word analysis**
+- 🔄 **Attempt comparison** to evaluate improvement
+- 💾 **PostgreSQL persistence** for speech-training data
+- ⚡ **Caching support** for improved application performance
+- 🛡️ **JWT-based authentication and Spring Security**
+- 🔁 **Mock providers** for local development without external AI services
+
+---
+
+# 🧠 AI Speech Coaching Pipeline
+
+SpeakVaani follows a multi-stage processing pipeline:
 
 ```text
-User speaks
-     ↓
-MediaRecorder (WebM audio/video)
-     ↓
-Spring Boot REST API
-     ↓
-Groq Whisper Speech-to-Text (`whisper-large-v3-turbo`)
-     ↓
-Real Transcript Text
-     ↓
-Java Deterministic Metrics Engine (Words, WPM, Sentences, Contextual Fillers)
-     ↓
-Ollama Llama 3.2 (Qualitative Language, Structure & Argument Evaluation)
-     ↓
-PostgreSQL Persistence (Flyway V6 Schema) & Caching
-     ↓
-AI Speech Coach Result Page with Attempt Comparison
+                    USER
+                      │
+                      ▼
+              🎙️ Speak & Record
+                      │
+                      ▼
+           MediaRecorder / WebRTC
+                      │
+                      ▼
+            ┌───────────────────┐
+            │   Spring Boot API │
+            └─────────┬─────────┘
+                      │
+                      ▼
+             🎧 Groq Whisper STT
+              whisper-large-v3-turbo
+                      │
+                      ▼
+                📝 Transcript
+                      │
+             ┌────────┴────────┐
+             │                 │
+             ▼                 ▼
+     Java Metrics Engine   Ollama Llama 3.2
+             │                 │
+             │          Qualitative Analysis
+             │                 │
+             ▼                 ▼
+      Words / WPM /       Language /
+      Sentences /         Structure /
+      Fillers             Arguments
+             │                 │
+             └────────┬────────┘
+                      ▼
+              🎯 Coaching Result
+                      │
+                      ▼
+             PostgreSQL + Cache
+                      │
+                      ▼
+             📈 Attempt Comparison
+                      │
+                      ▼
+              🔁 Improve & Retry
 ```
 
 ---
 
-## 🛠️ Tech Stack
+# 🛠️ Technology Stack
 
-* **Frontend**: React 19 + TypeScript + Vite + Tailwind CSS v4 + Lucide Icons
-* **Backend**: Spring Boot 3.4.x + Java 17/21 + Spring Security + JWT
-* **Database**: PostgreSQL + Flyway Migrations
-* **Speech-to-Text**: Groq Whisper API (`whisper-large-v3-turbo`) with Mock STT provider fallback
-* **AI Analysis**: Ollama Llama 3.2 with deterministic NLP fallback
-* **Recording**: WebRTC + MediaRecorder (.webm)
+| Layer | Technologies |
+|---|---|
+| **Frontend** | React 19, TypeScript, Vite |
+| **UI** | Tailwind CSS v4, Lucide Icons |
+| **Backend** | Spring Boot 3.4.x, Java 17/21 |
+| **Security** | Spring Security, JWT |
+| **Database** | PostgreSQL |
+| **Database Migration** | Flyway |
+| **Speech-to-Text** | Groq Whisper `whisper-large-v3-turbo` |
+| **AI Coaching** | Ollama, Llama 3.2 |
+| **Recording** | WebRTC, MediaRecorder |
+| **API Architecture** | REST APIs |
+| **Development Fallback** | Mock STT & Mock AI Providers |
 
 ---
 
-## ⚙️ Environment Configuration
+# 🏗️ Full-Stack Architecture
 
-Set the following environment variables on the **Spring Boot backend** (never in the frontend):
+```text
+┌──────────────────────────────────────────────┐
+│                  React 19                    │
+│        TypeScript + Vite + Tailwind         │
+└──────────────────────┬───────────────────────┘
+                       │ REST API
+                       ▼
+┌──────────────────────────────────────────────┐
+│              Spring Boot Backend             │
+│                                              │
+│  Spring Security + JWT                      │
+│  Speech Processing                           │
+│  Java Metrics Engine                         │
+│  AI Integration                              │
+│  REST Controllers / Services                 │
+└──────────────┬───────────────┬───────────────┘
+               │               │
+               ▼               ▼
+      ┌────────────────┐   ┌─────────────────┐
+      │  Groq Whisper  │   │ Ollama Llama 3.2│
+      │   Speech → Text│   │   AI Coaching   │
+      └────────────────┘   └─────────────────┘
+               │               │
+               └───────┬───────┘
+                       ▼
+              ┌─────────────────┐
+              │   PostgreSQL    │
+              │ + Flyway Schema │
+              └─────────────────┘
+```
+
+---
+
+# 📊 Speech Analysis Engine
+
+SpeakVaani does not depend entirely on an LLM for speech metrics.
+
+The application uses a **deterministic Java metrics engine** for measurable speech characteristics.
+
+### Metrics include:
+
+- **Word Count**
+- **Words Per Minute (WPM)**
+- **Sentence Count**
+- **Contextual Filler Detection**
+- **Speech Structure Analysis**
+
+The deterministic layer provides consistent measurable results, while the AI layer focuses on qualitative feedback such as:
+
+- Language quality
+- Communication structure
+- Argument quality
+- Overall response evaluation
+- Areas for improvement
+
+This hybrid approach combines **reliable programmatic analysis with AI-powered coaching**.
+
+---
+
+# 🤖 AI Integration
+
+## Speech-to-Text — Groq Whisper
+
+Recorded speech is processed through:
+
+```text
+Groq Whisper
+      ↓
+whisper-large-v3-turbo
+      ↓
+Real Transcript
+```
+
+The transcript then becomes the input for the speech analysis pipeline.
+
+A **Mock STT provider** is also available for local development and testing.
+
+---
+
+## AI Coaching — Ollama Llama 3.2
+
+After deterministic metrics are calculated, SpeakVaani uses **Llama 3.2 through Ollama** for qualitative evaluation.
+
+```text
+Transcript
+    +
+Speech Metrics
+    ↓
+Llama 3.2
+    ↓
+Language Evaluation
+    ↓
+Structure Evaluation
+    ↓
+Argument Evaluation
+    ↓
+Coaching Feedback
+```
+
+A **Mock AI provider** is available when Ollama is not configured.
+
+---
+
+# 🔐 Security & Configuration
+
+API credentials are designed to remain on the **Spring Boot backend** rather than being exposed through the React frontend.
+
+Example backend configuration:
 
 ```bash
-# Speech-to-Text (Groq Whisper)
+# Groq Whisper
 GROQ_API_KEY=your_groq_api_key_here
-STT_PROVIDER=groq # 'groq' for real Whisper STT, 'mock' for local dev mock
+STT_PROVIDER=groq
 
-# LLM Coaching (Ollama)
+# Ollama
 OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_MODEL=llama3.2
-AI_PROVIDER=ollama # 'ollama' or 'mock'
+AI_PROVIDER=ollama
 
-# Database
+# PostgreSQL
 SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/speakvaani_db
 SPRING_DATASOURCE_USERNAME=postgres
 SPRING_DATASOURCE_PASSWORD=postgres
 
-# JWT Secret
+# JWT
 JWT_SECRET=your_jwt_secret_here
 ```
 
-> **Security Note**: `GROQ_API_KEY` is only read by the Spring Boot backend server and is never sent to the browser or stored in React code.
+### Security Principle
+
+```text
+Frontend
+   │
+   │ REST API
+   ▼
+Spring Boot Backend
+   │
+   ├── Groq API Key
+   ├── Ollama
+   ├── PostgreSQL
+   └── JWT Security
+```
+
+> **Important:** Never place `GROQ_API_KEY`, database credentials, or JWT secrets inside frontend source code or commit them to GitHub.
 
 ---
 
-## 🚀 Running the Application
+# 🚀 Run Locally
 
-### 1. Start the Backend
+## 1. Clone the Project
+
+```bash
+git clone <your-github-repository-url>
+cd speakvaani
+```
+
+---
+
+## 2. Start PostgreSQL
+
+Create a PostgreSQL database:
+
+```text
+speakvaani_db
+```
+
+Then configure:
+
+```bash
+SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/speakvaani_db
+SPRING_DATASOURCE_USERNAME=postgres
+SPRING_DATASOURCE_PASSWORD=postgres
+```
+
+Flyway migrations will manage the database schema.
+
+---
+
+## 3. Start the Backend
+
 ```bash
 cd backend
 mvn spring-boot:run
 ```
-Backend runs on `http://localhost:8085`.
 
-### 2. Start the Frontend
+Backend:
+
+```text
+http://localhost:8085
+```
+
+A Maven distribution is also bundled under `/maven` for environments without a global Maven installation.
+
+---
+
+## 4. Start the Frontend
+
+From the project root:
+
 ```bash
 npm install
 npm run dev
 ```
-Frontend runs on `http://localhost:5173`.
 
-> The backend needs a running **PostgreSQL** instance (create a database named `speakvaani_db`, or change `SPRING_DATASOURCE_URL`). If you don't want to set up Groq/Ollama yet, set `STT_PROVIDER=mock` and `AI_PROVIDER=mock` to run everything locally with mock data.
+Frontend:
 
-A Maven distribution is already bundled under `/maven` in case you don't have Maven installed globally — you can run it with `./maven/apache-maven-3.9.9/bin/mvn spring-boot:run` from the `backend` folder instead of a system-wide `mvn`.
-
----
-
-## 📤 Pushing This Project to GitHub
-
-1. Create a new **empty** repository on GitHub (no README/license, so it doesn't conflict) — e.g. `speakvaani`.
-2. From the project's root folder, run:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit — SpeakVaani by Er. Pankaj Kumar"
-   git branch -M main
-   git remote add origin https://github.com/<your-username>/speakvaani.git
-   git push -u origin main
-   ```
-3. **Before pushing**, double-check `.env` (if you created one locally) is listed in `.gitignore` so your API keys never get committed. Only `.env.example` should be tracked.
-4. If `git` asks for credentials, use a [Personal Access Token](https://github.com/settings/tokens) instead of your GitHub password (GitHub no longer accepts passwords over HTTPS).
+```text
+http://localhost:5173
+```
 
 ---
 
-## 🌐 Where to Deploy It Live
+# 🧪 Local Development Without AI Services
 
-This is a two-part app (a static React frontend + a Java Spring Boot backend + a PostgreSQL database), so it needs a **frontend host** and a **backend host**:
+You can run the application with mock providers:
 
-| Part | Recommended Free/Low-Cost Options | Notes |
-|---|---|---|
-| **Frontend** (Vite/React build) | [Vercel](https://vercel.com) or [Netlify](https://netlify.com) | Connect your GitHub repo, set the build command to `npm run build` and the output directory to `dist`. A `vercel.json` is already included in this project. |
-| **Backend** (Spring Boot / Java) | [Render](https://render.com), [Railway](https://railway.app), or [Fly.io](https://fly.io) | Deploy the `backend` folder as a "Web Service" using its Dockerfile/Maven build. Add all the environment variables listed above in the host's dashboard. |
-| **Database** (PostgreSQL) | Render Postgres, [Neon](https://neon.tech), or [Supabase](https://supabase.com) | Any managed Postgres works — just point `SPRING_DATASOURCE_URL` at it. |
+```bash
+STT_PROVIDER=mock
+AI_PROVIDER=mock
+```
 
-**Suggested simplest path:**
-1. Deploy PostgreSQL on **Neon** or **Render** — copy the connection string.
-2. Deploy the `backend/` folder on **Render** (Java/Maven web service) — paste the DB connection string and your `GROQ_API_KEY`/`JWT_SECRET` as environment variables there.
-3. Deploy the frontend (repo root) on **Vercel** — in the frontend's environment variables, point `src/services/api.ts` / your API base URL to the live Render backend URL instead of `localhost:8085`.
-4. Once both are live, your app is reachable at your Vercel URL (e.g. `speakvaani.vercel.app`), fully working end-to-end.
+This allows the application workflow to be tested without configuring Groq Whisper or Ollama.
 
 ---
 
-design — everything else (colors, fonts) will still apply automatically.
+# 📁 Project Structure
+
+```text
+SpeakVaani/
+│
+├── backend/
+│   ├── src/
+│   │   └── main/
+│   │       ├── java/
+│   │       └── resources/
+│   ├── pom.xml
+│   └── Dockerfile
+│
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   └── ...
+│
+├── public/
+│
+├── .github/
+│
+├── package.json
+├── vite.config.*
+├── vercel.json
+└── README.md
+```
+
+---
+
+# 🌍 Deployment Architecture
+
+SpeakVaani is designed as a **multi-service full-stack application**:
+
+```text
+                   🌐 USER
+                      │
+                      ▼
+             ┌─────────────────┐
+             │ Vercel Frontend │
+             │ React + Vite    │
+             └────────┬────────┘
+                      │
+                      │ REST API
+                      ▼
+             ┌─────────────────┐
+             │ Spring Boot API │
+             │ Java Backend    │
+             └───────┬─────────┘
+                     │
+          ┌──────────┼──────────┐
+          ▼          ▼          ▼
+       Groq       Ollama    PostgreSQL
+      Whisper     Llama 3.2
+```
+
+### Recommended Hosting
+
+| Component | Platform Options |
+|---|---|
+| React Frontend | Vercel / Netlify |
+| Spring Boot Backend | Render / Railway / Fly.io |
+| PostgreSQL | Neon / Render / Supabase |
+
+---
+
+# 📌 Engineering Highlights
+
+### Full-Stack Development
+
+Built an end-to-end application spanning:
+
+**React → REST APIs → Spring Boot → AI Services → PostgreSQL**
+
+### AI Integration
+
+Integrated external AI services for:
+
+- Speech recognition
+- Transcript generation
+- Qualitative language analysis
+- AI coaching
+
+### Hybrid AI Architecture
+
+Combined:
+
+**Deterministic Java Metrics + LLM-based Qualitative Evaluation**
+
+This avoids relying on an LLM for every measurable metric.
+
+### Production-Oriented Security
+
+Implemented backend-side handling for sensitive configuration together with:
+
+- Spring Security
+- JWT authentication
+- Environment variables
+- Database credentials isolation
+
+### Database Engineering
+
+Uses:
+
+- PostgreSQL
+- Flyway database migrations
+- Persistence layer
+- Caching
+
+### Developer-Friendly Architecture
+
+Includes mock providers so core application workflows can be developed and tested without requiring every external AI service during local development.
+
+---
+
+# 🎯 What This Project Demonstrates
+
+This project demonstrates practical experience with:
+
+```text
+Java
+   │
+   ├── Spring Boot
+   ├── Spring Security
+   ├── REST APIs
+   └── JWT
+        │
+        ▼
+AI Engineering
+   │
+   ├── Groq Whisper
+   ├── Ollama
+   └── Llama 3.2
+        │
+        ▼
+Frontend Engineering
+   │
+   ├── React
+   ├── TypeScript
+   ├── Vite
+   └── Tailwind CSS
+        │
+        ▼
+Data Layer
+   │
+   ├── PostgreSQL
+   ├── Flyway
+   └── Caching
+```
+
+---
+
+# 🔒 GitHub Security
+
+Before pushing the project:
+
+```text
+.env
+.env.local
+.env.production
+```
+
+should **not** be committed.
+
+Use `.env.example` for documenting required environment variables.
+
+Never commit:
+
+- API keys
+- JWT secrets
+- Database passwords
+- Production credentials
+
+---
+
+# 👨‍💻 Developer
+
+### **Er. Pankaj Kumar**
+
+**B.Tech — Computer Science & Engineering**
+
+Interested in building practical software using:
+
+**Java • Spring Boot • React • AI/ML • REST APIs • PostgreSQL • Cloud Technologies**
+
+---
+
+## 🚀 Project
+
+**SpeakVaani — AI-Powered Speech Training & Coaching Platform**
+
+### 🔗 Live Application
+
+**[https://speakvaani.vercel.app/](https://speakvaani.vercel.app/)**
+
+---
+
+## ⭐ If You Like This Project
+
+If SpeakVaani is useful or interesting, consider giving the repository a ⭐ on GitHub.
+
+**Built with Java, React, AI and a focus on practical software engineering.**
+
+---
