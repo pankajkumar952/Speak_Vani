@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="SpeakVaani — spontaneous speaking practice platform by Er. Pankaj Kumar. Spin a topic, practice with your camera, and sharpen your verbal clarity." />
+    <meta name="author" content="Er. Pankaj Kumar" />
+    <title>SpeakVaani — Spontaneous Speaking Practice</title>
+
+    <!-- Immediate Theme Bootstrap to prevent Flash of Wrong Theme (FOWT) -->
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('speakvaani_theme_mode');
+          var isDark = false;
+          if (saved === 'dark') {
+            isDark = true;
+          } else if (saved === 'light') {
+            isDark = false;
+          } else {
+            isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          }
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Google Fonts: Manrope & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased min-h-screen selection:bg-[#0d9488] selection:text-white font-sans">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

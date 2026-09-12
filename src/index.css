@@ -1,0 +1,246 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-serif: 'Lora', Georgia, serif;
+    --font-sans: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Outfit', sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    /* Light Theme Tokens — Cool Slate & Teal */
+    --bg-primary: #f4f7f8;
+    --bg-secondary: #ffffff;
+    --bg-surface: #ffffff;
+    --surface-primary: #ffffff;
+    --surface-secondary: #eaf1f1;
+    --bg-subtle: #e7eeee;
+    --bg-muted: #d9e3e2;
+
+    --text-primary: #0f1b1a;
+    --text-secondary: #3c4a49;
+    --text-muted: #667675;
+    --text-accent: #0d7d72; /* Deep Teal for high contrast in Light Mode */
+
+    --border-primary: #d7e0df;
+    --border-subtle: #e2e9e8;
+    --border-hover: #bccac9;
+
+    --accent-primary: #0d7d72;
+    --accent-hover: #0a5f57;
+
+    /* Signature Indigo & Emerald Brand Tokens */
+    --brand-violet: #4338ca;
+    --brand-magenta: #0d9488;
+    --brand-gradient: linear-gradient(135deg, #4338ca 0%, #0891b2 50%, #10b981 100%);
+    --brand-gradient-hover: linear-gradient(135deg, #3730a3 0%, #0e7490 50%, #059669 100%);
+    --glow-brand: 0 0 24px -4px rgba(13, 148, 136, 0.35);
+  }
+
+  .dark {
+    /* Dark Theme Tokens — Deep Ink & Teal */
+    --bg-primary: #0a0f11;
+    --bg-secondary: #10171a;
+    --bg-surface: #10171a;
+    --surface-primary: #10171a;
+    --surface-secondary: #172023;
+    --bg-subtle: #141c1f;
+    --bg-muted: #1e2a2d;
+
+    --text-primary: #f1f6f5;
+    --text-secondary: #c3d0cf;
+    --text-muted: #85978f;
+    --text-accent: #2dd4bf; /* Vibrant glowing teal in Dark Mode */
+
+    --border-primary: #1f2b2e;
+    --border-subtle: #182124;
+    --border-hover: #2c3a3d;
+
+    --accent-primary: #14b8a6;
+    --accent-hover: #5eead4;
+
+    /* Dark Mode Electric Brand Tokens */
+    --brand-violet: #6366f1;
+    --brand-magenta: #2dd4bf;
+    --brand-gradient: linear-gradient(135deg, #6366f1 0%, #06b6d4 50%, #2dd4bf 100%);
+    --brand-gradient-hover: linear-gradient(135deg, #4f46e5 0%, #0891b2 50%, #14b8a6 100%);
+    --glow-brand: 0 0 32px -4px rgba(45, 212, 191, 0.45);
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+}
+
+/* ================= CINEMATIC RADIAL VIEW TRANSITIONS ================= */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+/* Minimalist Dot Grid Signature */
+.bg-dot-grid {
+  background-image: radial-gradient(rgba(17, 17, 17, 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.dark .bg-dot-grid {
+  background-image: radial-gradient(rgba(245, 245, 242, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Editorial Minimalist Styles */
+.editorial-border {
+  border-color: var(--border-primary);
+}
+
+.editorial-surface {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-primary);
+}
+
+.editorial-subtle {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-primary);
+}
+
+.editorial-divider {
+  border-top: 1px solid var(--border-primary);
+}
+
+/* Typography styles */
+.font-mono-code {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum";
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 105, 0.35);
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(200, 200, 205, 0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* High Contrast Orange Text Adaptation */
+.text-\[\#d97757\],
+.text-\[\#ea580c\],
+.text-\[\#f97316\],
+.text-\[\#fb923c\] {
+  color: #c2410c;
+}
+
+.dark .text-\[\#d97757\],
+.dark .text-\[\#ea580c\],
+.dark .text-\[\#f97316\],
+.dark .text-\[\#fb923c\] {
+  color: #fb923c;
+}
+
+.hover\:text-\[\#d97757\]:hover,
+.hover\:text-\[\#ea580c\]:hover {
+  color: #c2410c;
+}
+
+.dark .hover\:text-\[\#d97757\]:hover,
+.dark .hover\:text-\[\#ea580c\]:hover {
+  color: #fb923c;
+}
+
+/* ================= AUDIO WAVE ANIMATIONS ================= */
+@keyframes audio-wave-1 {
+  0%, 100% { height: 4px; }
+  50% { height: 18px; }
+}
+
+@keyframes audio-wave-2 {
+  0%, 100% { height: 16px; }
+  50% { height: 6px; }
+}
+
+@keyframes audio-wave-3 {
+  0%, 100% { height: 8px; }
+  50% { height: 22px; }
+}
+
+@keyframes audio-wave-4 {
+  0%, 100% { height: 20px; }
+  50% { height: 5px; }
+}
+
+.animate-audio-bar-1 {
+  animation: audio-wave-1 0.9s ease-in-out infinite;
+}
+
+.animate-audio-bar-2 {
+  animation: audio-wave-2 0.75s ease-in-out infinite 0.15s;
+}
+
+.animate-audio-bar-3 {
+  animation: audio-wave-3 0.85s ease-in-out infinite 0.3s;
+}
+
+.animate-audio-bar-4 {
+  animation: audio-wave-4 0.7s ease-in-out infinite 0.1s;
+}
+
+/* ================= CAMERA STUDIO LIGHTING & FILTER EFFECTS ================= */
+.camera-filter-studio {
+  filter: brightness(1.12) contrast(1.08) saturate(1.15);
+}
+
+.camera-filter-warm {
+  filter: sepia(0.12) brightness(1.08) saturate(1.2) contrast(1.05);
+}
+
+.camera-filter-dramatic {
+  filter: contrast(1.22) brightness(1.05) saturate(1.05);
+}
+
+.camera-blur-bg {
+  mask-image: radial-gradient(circle at center, black 55%, rgba(0, 0, 0, 0.4) 85%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle at center, black 55%, rgba(0, 0, 0, 0.4) 85%, transparent 100%);
+}
+
+.glow-brand {
+  box-shadow: var(--glow-brand);
+}
+
+.bg-brand-gradient {
+  background: var(--brand-gradient);
+}
+
+
